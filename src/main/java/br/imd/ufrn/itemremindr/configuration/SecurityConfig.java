@@ -29,10 +29,19 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorized -> authorized
+                        // public endpoints
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/items").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/places").hasRole("ADMIN")
+                        // private endpoints
+                        .requestMatchers(HttpMethod.POST, "/items").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/items/{id}", "/items/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/items", "/items/{id}", "/items/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/items/{id}", "/items/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/places").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/places/{id}", "/place/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/places/{placeId}/item/{itemId}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/places", "/places/{id}", "/place/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/places/{id}", "/place/{id}").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

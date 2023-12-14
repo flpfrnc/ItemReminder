@@ -1,5 +1,6 @@
 package br.imd.ufrn.itemremindr.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Set;
 
@@ -25,12 +26,8 @@ public class Item {
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "place_items",
-            joinColumns = @JoinColumn(name = "itemID"),
-            inverseJoinColumns = @JoinColumn(name = "placeID")
-    )
+    @ManyToMany(mappedBy = "items")
+    @JsonIgnore
     private Set<Place> places;
 
     public void updateItem (UpdateItemDTO data) {

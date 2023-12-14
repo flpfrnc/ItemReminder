@@ -5,6 +5,4 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Set;
 
 public record UpdateItemDTO(
-        @NotNull
-        Long id,
         String name) {}

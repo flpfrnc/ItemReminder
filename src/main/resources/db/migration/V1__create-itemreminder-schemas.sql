@@ -10,8 +10,8 @@ CREATE TABLE users (
 CREATE TABLE places (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
-    userID INT,
-    FOREIGN KEY (userID) REFERENCES users(id)
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 
@@ -24,8 +24,8 @@ CREATE TABLE items (
 -- Create Junction Table for Many-to-Many Relationship (Items and Places)
 CREATE TABLE place_items (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    placeID INT,
-    itemID INT,
-    FOREIGN KEY (placeID) REFERENCES places(id),
-    FOREIGN KEY (itemID) REFERENCES items(id)
+    place_id INT,
+    item_id INT,
+    FOREIGN KEY (place_id) REFERENCES places(id),
+    FOREIGN KEY (item_id) REFERENCES items(id)
 );
