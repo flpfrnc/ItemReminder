@@ -1,5 +1,6 @@
 package br.imd.ufrn.itemremindr.configuration;
 
+import br.imd.ufrn.itemremindr.model.User;
 import br.imd.ufrn.itemremindr.repository.UserRepository;
 import br.imd.ufrn.itemremindr.service.TokenService;
 import jakarta.servlet.FilterChain;
@@ -45,6 +46,6 @@ public class SecurityFilter extends OncePerRequestFilter {
         var token = request.getHeader("Authorization");
         if (token == null || !token.startsWith("Bearer "))
             return null;
-        return token;
+        return token.replace("Bearer ", "");
     }
 }
